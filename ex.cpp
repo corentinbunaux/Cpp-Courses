@@ -6,12 +6,12 @@ class Vehicule
 private:
     int vitesse_max;
 
-public:
+protected: // impossible de créer d'instances dans le main
     Vehicule(int speed)
     {
         this->vitesse_max = speed;
     }
-    void affiche()
+    virtual void affiche()
     {
         cout << "Vitesse max : " << this->vitesse_max << endl;
     }
@@ -54,7 +54,7 @@ public:
 class Amphibie : public Marin, Terrestre
 {
 public:
-    Amphibie(int wheels, int tir, int speed) : Marin(speed, tir), Terrestre(speed, wheels) {}
+    Amphibie(int wheels, int tir, int speed_t, int speed_m) : Marin(speed_m, tir), Terrestre(speed_t, wheels) {}
     void affiche()
     {
         Terrestre::affiche();
@@ -74,7 +74,7 @@ int main(void)
 
     cout << endl;
 
-    Amphibie a(2, 47, 180);
+    Amphibie a(2, 47, 180, 190);
     a.affiche();
 
     return 0;
