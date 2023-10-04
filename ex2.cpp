@@ -45,56 +45,57 @@ public:
         }
     }
     friend ostream &operator<<(ostream &flux, const SHORT &s);
-    SHORT operator+(SHORT &s)
+
+    friend SHORT operator+(const SHORT &s1, const SHORT &s2)
     {
-        if (val + s.val > 32767)
+        if (s1.val + s2.val > 32767)
         {
-            Deborde deb(val + s.val, "débordement positif");
+            Deborde deb(s1.val + s2.val, "débordement positif");
             throw deb;
             return 0;
         }
         else
         {
-            return this->val + s.val;
+            return s1.val + s2.val;
         }
     }
-    SHORT operator-(SHORT &s)
+    friend SHORT operator-(const SHORT &s1, const SHORT &s2)
     {
-        if (val - s.val < -32767)
+        if (s1.val - s2.val < -32767)
         {
-            Deborde deb(val - s.val, "débordement négatif");
+            Deborde deb(s1.val - s2.val, "débordement négatif");
             throw deb;
             return 0;
         }
         else
         {
-            return this->val - s.val;
+            return s1.val - s2.val;
         }
     }
-    SHORT operator*(SHORT &s)
+    friend SHORT operator*(const SHORT &s1, const SHORT &s2)
     {
-        if (val * s.val > 32767)
+        if (s1.val * s2.val > 32767)
         {
-            Deborde deb(val * s.val, "débordement positif");
+            Deborde deb(s1.val * s2.val, "débordement positif");
             throw deb;
             return 0;
         }
         else
         {
-            return this->val * s.val;
+            return s1.val * s2.val;
         }
     }
-    SHORT operator/(SHORT &s)
+    friend SHORT operator/(const SHORT &s1, const SHORT &s2)
     {
-        if (!s.val)
+        if (!s1.val)
         {
-            Deborde deb(this->val / s.val, "division par 0");
+            Deborde deb(s1.val / s2.val, "division par 0");
             throw deb;
             return 0;
         }
         else
         {
-            return this->val / s.val;
+            return s1.val / s2.val;
         }
     }
 };
