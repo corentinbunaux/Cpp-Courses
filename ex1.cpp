@@ -10,10 +10,7 @@ private:
     string nom;
     int age;
 public:
-    Personne(string &s, int &a){
-        this->nom = s;
-        this->age = a;
-    }
+    Personne(string &s, int &a) : nom(s), age(a){}
     friend ostream &operator<<(ostream &flux, const Personne &p);
 };
 ostream &operator<<(ostream &flux, const Personne &p)
@@ -24,9 +21,12 @@ ostream &operator<<(ostream &flux, const Personne &p)
 
 vector <Personne> LireFic();
 void afficheListPers(vector <Personne> listPers);
+void affiche_with_iterator(vector <Personne> listPers);
 
 int main(void){
     afficheListPers(LireFic());
+
+    affiche_with_iterator(LireFic());
     return 0;
 }
 
@@ -51,3 +51,9 @@ void afficheListPers(vector <Personne> listPers){
     }
 }
 
+void affiche_with_iterator(vector <Personne> listPers){
+    vector <Personne> ::iterator it;
+    for(it=listPers.begin();it!=listPers.end();it++){
+        cout << *it << endl;
+    }
+}
