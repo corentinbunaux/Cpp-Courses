@@ -4,6 +4,8 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <list>
+#include <cmath>
 using namespace std;
 
 class Personne
@@ -49,6 +51,53 @@ map<string, Personne> LireFic_map();
 void affiche_with_iterator_map(map<string, Personne> listPers);
 bool isInMap(const string &name, map<string, Personne> listPers);
 
+class Point
+{
+public:
+    Point();
+    Point(float x0, float y0);
+    float getX() const          { return x; }
+    float getY() const          { return y; }
+    void setX(float nouvX)      { x = nouvX; }
+    void setY(float nouvY)      { y = nouvY; }
+    void afficher() const;
+    bool egalA(const Point& point2) const;
+    float distance(const Point& point2) const;
+
+private:
+    float x, y;
+};
+Point::Point()
+{
+    x = 0;
+    y = 0;
+}
+Point::Point(float x0, float y0)
+{
+    x = x0;
+    y = y0;
+}
+void Point::afficher() const
+{
+    cout << "(" << x << ", " << y << ")" << endl;
+}
+bool Point::egalA(const Point& point2) const
+{
+    if (x == point2.x && y == point2.y)
+        return true;
+    else
+        return false;
+}
+float Point::distance(const Point& point2) const
+{
+    float dx = x - point2.x;
+    float dy = y - point2.y;
+    return sqrt(dx * dx + dy * dy);
+}
+
+list<Point> LireFic_list();
+void affiche_list(list<Point> listPts);
+
 int main(void)
 {
     /*ex1*/
@@ -67,6 +116,7 @@ int main(void)
     // afficheListPers(PersVect);
 
     /*ex5*/
+    affiche_list(LireFic_list());
     return 0;
 }
 
@@ -145,4 +195,30 @@ bool isInMap(const string &name, map<string, Personne> listPers)
         }
     }
     return 0;
+}
+
+list<Point> LireFic_list()
+{
+    list<Point> listPts;
+    ifstream monFic("points.txt");
+    float abs, ord;
+    while (!monFic.fail())
+    {
+        monFic >> abs >> ord;
+        if (!monFic.fail())
+        {
+            Point pt(abs, ord);
+            listPts.push_back(pt);
+        }
+    }
+    return listPts;
+}
+
+void affiche_list(list<Point> listPts)
+{
+    list<Point>::iterator it;
+    for (it = listPts.begin(); it != listPts.end(); it++)
+    {
+        it->afficher();
+    }
 }
